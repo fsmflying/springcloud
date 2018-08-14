@@ -1,0 +1,40 @@
+server:
+  port: 8090
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka
+    #设置为true时会报错
+#    register-with-eureka: true
+#    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+spring:
+  application:
+    name: consumer01
+  cloud:
+    config:
+      #客户端在服务端搜索配置时的名称，可以与spring.application.name不一致
+      name: consumer01
+      discovery:
+        #启用配置服务发现
+        enabled: true
+        #配置中心服务端在eureka的注册名称；
+        serviceId: config-server
+      #分支名称
+      label: master
+      #标识，local，dev，prod等，随意
+      profile: dev
+      #标识，local，dev，prod等，随意
+      uri: http://localhost:8080/
+feign:
+  hystrix:
+    enabled: true
+#security:
+#  basic:
+#    enabled: false
+management:
+  security:
+    enabled: false
+#logging:
+#  level: error
